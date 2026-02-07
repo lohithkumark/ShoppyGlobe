@@ -28,16 +28,21 @@ function Header() {
 
 
       <nav>
-        <Link to="/">Home</Link>
+  <Link to="/">Home</Link>
 
-        <Link to="/cart">
-          Cart ({total})
-        </Link>
+  <Link to="/cart">
+    Cart ({total})
+  </Link>
 
-        <button onClick={() => dispatch(toggleTheme())}>
-          {dark ? "☀️" : "🌙"}
-        </button>
-      </nav>
+  <Link to="/orders">
+    Orders
+  </Link>
+
+  <button onClick={() => dispatch(toggleTheme())}>
+    {dark ? "☀️" : "🌙"}
+  </button>
+</nav>
+
     </header>
   );
 }

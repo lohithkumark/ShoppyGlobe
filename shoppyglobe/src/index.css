@@ -437,3 +437,14 @@ h2 {
   background: black;
 }
 
+/* Dark Mode - Orders */
+
+.dark .order-card {
+  background: #1f2933;
+  color: white;
+  border: 1px solid #374151;
+}
+
+.dark .order-card p {
+  color: #e5e7eb;
+}

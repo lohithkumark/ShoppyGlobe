@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import toast from "react-hot-toast";
 
 import { addToCart } from "../redux/cartSlice";
 import { toggleWish } from "../redux/wishlistSlice";
@@ -32,13 +33,27 @@ function ProductItem({ product }) {
 
       <p>₹{product.price}</p>
 
-      <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
-        <button onClick={() => dispatch(addToCart(product))}>
+      <div
+        style={{
+          display: "flex",
+          gap: "10px",
+          justifyContent: "center"
+        }}
+      >
+        <button
+          onClick={() => {
+            dispatch(addToCart(product));
+            toast.success("Added to cart");
+          }}
+        >
           Add to Cart
         </button>
 
         <button
-          onClick={() => dispatch(toggleWish(product))}
+          onClick={() => {
+            dispatch(toggleWish(product));
+            toast.success("Wishlist updated");
+          }}
           style={{
             background: isLiked ? "#ef4444" : "#111827"
           }}

@@ -1,13 +1,26 @@
 import { createBrowserRouter } from "react-router-dom";
+import { lazy, Suspense } from "react";
 
 import App from "../App";
-
-import Home from "../pages/Home";
-import Cart from "../pages/Cart";
-import ProductDetail from "../pages/ProductDetail";
-import Checkout from "../pages/Checkout";
-import Orders from "../pages/Orders";
 import NotFound from "../pages/NotFound";
+
+/* Lazy Loaded Pages */
+
+const Home = lazy(() => import("../pages/Home"));
+const Cart = lazy(() => import("../pages/Cart"));
+const ProductDetail = lazy(() => import("../pages/ProductDetail"));
+const Checkout = lazy(() => import("../pages/Checkout"));
+const Orders = lazy(() => import("../pages/Orders"));
+
+/* Loader Component */
+
+function Loader() {
+  return (
+    <div style={{ textAlign: "center", padding: "40px" }}>
+      <h3>Loading...</h3>
+    </div>
+  );
+}
 
 const router = createBrowserRouter([
   {
@@ -18,27 +31,47 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />
+        element: (
+          <Suspense fallback={<Loader />}>
+            <Home />
+          </Suspense>
+        )
       },
 
       {
         path: "cart",
-        element: <Cart />
+        element: (
+          <Suspense fallback={<Loader />}>
+            <Cart />
+          </Suspense>
+        )
       },
 
       {
         path: "product/:id",
-        element: <ProductDetail />
+        element: (
+          <Suspense fallback={<Loader />}>
+            <ProductDetail />
+          </Suspense>
+        )
       },
 
       {
         path: "checkout",
-        element: <Checkout />
+        element: (
+          <Suspense fallback={<Loader />}>
+            <Checkout />
+          </Suspense>
+        )
       },
 
       {
         path: "orders",
-        element: <Orders />
+        element: (
+          <Suspense fallback={<Loader />}>
+            <Orders />
+          </Suspense>
+        )
       }
     ]
   }
