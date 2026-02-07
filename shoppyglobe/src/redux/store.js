@@ -1,14 +1,8 @@
-import { configureStore, createSlice } from "@reduxjs/toolkit";
-
-// Temporary reducer 
-const tempSlice = createSlice({
-  name: "temp",
-  initialState: {},
-  reducers: {}
-});
+import { configureStore } from "@reduxjs/toolkit";
+import cartReducer from "./cartSlice";
 
 export const store = configureStore({
   reducer: {
-    temp: tempSlice.reducer
+    cart: cartReducer
   }
 });
