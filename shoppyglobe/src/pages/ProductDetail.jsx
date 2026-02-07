@@ -5,64 +5,30 @@ function ProductDetail() {
   const { id } = useParams();
 
   const [product, setProduct] = useState(null);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchProduct() {
-      try {
-        const res = await fetch(`https://dummyjson.com/products/${id}`);
-
-        if (!res.ok) {
-          throw new Error("Failed to load product");
-        }
-
-        const data = await res.json();
-
-        setProduct(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
+    async function fetchOne() {
+      const res = await fetch(`https://dummyjson.com/products/${id}`);
+      const data = await res.json();
+      setProduct(data);
     }
 
-    fetchProduct();
+    fetchOne();
   }, [id]);
 
-  if (loading) return <h3>Loading...</h3>;
-  if (error) return <h3>Error: {error}</h3>;
+  if (!product) return <h3>Loading...</h3>;
 
   return (
-    <div style={styles.container}>
-      <img
-        src={product.thumbnail}
-        alt={product.title}
-        style={styles.img}
-      />
+    <div className="container">
+      <h2>{product.title}</h2>
 
-      <div>
-        <h2>{product.title}</h2>
-        <p>{product.description}</p>
-        <h3>₹{product.price}</h3>
+      <img src={product.thumbnail} />
 
-        <button>Add to Cart</button>
-      </div>
+      <p>{product.description}</p>
+
+      <h3>₹{product.price}</h3>
     </div>
   );
 }
-
-const styles = {
-  container: {
-    display: "flex",
-    gap: "30px",
-    padding: "20px"
-  },
-
-  img: {
-    width: "300px",
-    borderRadius: "10px"
-  }
-};
 
 export default ProductDetail;

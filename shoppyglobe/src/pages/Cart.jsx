@@ -7,15 +7,15 @@ function Cart() {
 
   if (cart.length === 0) {
     return (
-      <div>
-        <h2>Your Cart is Empty</h2>
+      <div className="container">
+        <h2>Cart is Empty</h2>
         <Link to="/">Go Shopping</Link>
       </div>
     );
   }
 
   return (
-    <div>
+    <div className="container">
       <h2>Your Cart</h2>
 
       {cart.map(item => (
@@ -23,7 +23,7 @@ function Cart() {
       ))}
 
       <Link to="/checkout">
-        <button>Proceed to Checkout</button>
+        <button>Checkout</button>
       </Link>
     </div>
   );

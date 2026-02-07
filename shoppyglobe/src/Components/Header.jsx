@@ -1,32 +1,45 @@
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import { setSearch } from "../redux/searchSlice";
+import { toggleTheme } from "../redux/themeSlice";
 
 function Header() {
+  const dispatch = useDispatch();
+
+  const cart = useSelector(state => state.cart);
+  const dark = useSelector(state => state.theme.dark);
+
+  const total = cart.reduce(
+    (sum, item) => sum + item.qty,
+    0
+  );
+
   return (
-    <header style={styles.header}>
+    <header className="header">
       <h2>ShoppyGlobe</h2>
 
-      <nav style={styles.nav}>
+      <div className="search-box">
+        <input
+        placeholder="Search products..."
+        onChange={e => dispatch(setSearch(e.target.value))}
+    />
+        </div>
+
+
+      <nav>
         <Link to="/">Home</Link>
-        <Link to="/cart">Cart (0)</Link>
+
+        <Link to="/cart">
+          Cart ({total})
+        </Link>
+
+        <button onClick={() => dispatch(toggleTheme())}>
+          {dark ? "☀️" : "🌙"}
+        </button>
       </nav>
     </header>
   );
 }
-
-const styles = {
-  header: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "15px 30px",
-    background: "#222",
-    color: "white"
-  },
-
-  nav: {
-    display: "flex",
-    gap: "20px"
-  }
-};
 
 export default Header;

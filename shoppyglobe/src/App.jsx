@@ -1,9 +1,13 @@
 import { Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 import Header from "./Components/Header";
 
 function App() {
+  const dark = useSelector(state => state.theme.dark);
+
   return (
-    <div>
+    <div className={dark ? "dark" : ""}>
       <Header />
       <Outlet />
     </div>
@@ -11,4 +15,3 @@ function App() {
 }
 
 export default App;
-

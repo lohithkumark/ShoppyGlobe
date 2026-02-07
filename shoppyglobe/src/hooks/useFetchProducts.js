@@ -6,13 +6,11 @@ function useFetchProducts() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchProducts() {
+    async function fetchData() {
       try {
         const res = await fetch("https://dummyjson.com/products");
 
-        if (!res.ok) {
-          throw new Error("Failed to fetch products");
-        }
+        if (!res.ok) throw new Error("Failed to fetch");
 
         const data = await res.json();
 
@@ -24,7 +22,7 @@ function useFetchProducts() {
       }
     }
 
-    fetchProducts();
+    fetchData();
   }, []);
 
   return { products, error, loading };

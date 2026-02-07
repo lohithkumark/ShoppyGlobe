@@ -1,22 +1,29 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import { addToCart } from "../redux/cartSlice";
+import { toggleWish } from "../redux/wishlistSlice";
 
 function ProductItem({ product }) {
   const dispatch = useDispatch();
 
-  function handleAdd() {
-    dispatch(addToCart(product));
-  }
+  const wishlist = useSelector(state => state.wishlist);
+
+  const isLiked = wishlist.some(
+    item => item.id === product.id
+  );
 
   return (
-    <div style={styles.card}>
+    <motion.div
+      className="card"
+      whileHover={{ scale: 1.05 }}
+      transition={{ type: "spring", stiffness: 200 }}
+    >
       <img
         src={product.thumbnail}
         alt={product.title}
         loading="lazy"
-        style={styles.img}
       />
 
       <Link to={`/product/${product.id}`}>
@@ -25,25 +32,22 @@ function ProductItem({ product }) {
 
       <p>₹{product.price}</p>
 
-      <button onClick={handleAdd}>Add to Cart</button>
-    </div>
+      <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
+        <button onClick={() => dispatch(addToCart(product))}>
+          Add to Cart
+        </button>
+
+        <button
+          onClick={() => dispatch(toggleWish(product))}
+          style={{
+            background: isLiked ? "#ef4444" : "#111827"
+          }}
+        >
+          {isLiked ? "❤️" : "🤍"}
+        </button>
+      </div>
+    </motion.div>
   );
 }
-
-const styles = {
-  card: {
-    border: "1px solid #ddd",
-    padding: "15px",
-    borderRadius: "8px",
-    width: "200px",
-    textAlign: "center"
-  },
-
-  img: {
-    width: "100%",
-    height: "150px",
-    objectFit: "cover"
-  }
-};
 
 export default ProductItem;
