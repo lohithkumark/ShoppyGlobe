@@ -1,12 +1,13 @@
 import { useDispatch } from "react-redux";
-import { removeFromCart } from "../redux/cartSlice";
+
+import {
+  removeFromCart,
+  increaseQty,
+  decreaseQty
+} from "../redux/cartSlice";
 
 function CartItem({ item }) {
   const dispatch = useDispatch();
-
-  function handleRemove() {
-    dispatch(removeFromCart(item.id));
-  }
 
   return (
     <div style={styles.item}>
@@ -15,9 +16,22 @@ function CartItem({ item }) {
       <div>
         <h4>{item.title}</h4>
         <p>₹{item.price}</p>
-        <p>Qty: {item.qty}</p>
 
-        <button onClick={handleRemove}>Remove</button>
+        <div style={styles.qtyBox}>
+          <button onClick={() => dispatch(decreaseQty(item.id))}>
+            -
+          </button>
+
+          <span>{item.qty}</span>
+
+          <button onClick={() => dispatch(increaseQty(item.id))}>
+            +
+          </button>
+        </div>
+
+        <button onClick={() => dispatch(removeFromCart(item.id))}>
+          Remove
+        </button>
       </div>
     </div>
   );
@@ -35,6 +49,13 @@ const styles = {
     width: "80px",
     height: "80px",
     objectFit: "cover"
+  },
+
+  qtyBox: {
+    display: "flex",
+    alignItems: "center",
+    gap: "10px",
+    margin: "10px 0"
   }
 };
 
