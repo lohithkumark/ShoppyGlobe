@@ -13,58 +13,52 @@ function ProductItem({ product }) {
   const wishlist = useSelector(state => state.wishlist);
   const currency = useSelector(state => state.currency);
 
-  const isLiked = wishlist.find(
+  const isLiked = wishlist.some(
     item => item.id === product.id
   );
-
-  function handleAddCart() {
-    dispatch(addToCart(product));
-    toast.success("Added to cart");
-  }
-
-  function handleWishlist() {
-    dispatch(toggleWish(product));
-    toast.success("Wishlist updated");
-  }
 
   return (
     <motion.div
       className="card"
-      whileHover={{ scale: 1.03 }}
-      transition={{ duration: 0.2 }}
+      whileHover={{ scale: 1.05 }}
     >
-      <img
-        src={product.thumbnail}
-        alt={product.title}
-        loading="lazy"
-      />
+
+      <img src={product.thumbnail} />
 
       <Link to={`/product/${product.id}`}>
         <h4>{product.title}</h4>
       </Link>
 
-      <p>{formatPrice(product.price, currency)}</p>
+      <p>
+        {formatPrice(
+          product.price,
+          currency.code,
+          currency.rate
+        )}
+      </p>
 
-      <div
-        style={{
-          display: "flex",
-          gap: "10px",
-          justifyContent: "center"
-        }}
-      >
-        <button onClick={handleAddCart}>
+      <div className="btn-row">
+
+        <button
+          onClick={() => {
+            dispatch(addToCart(product));
+            toast.success("Added to cart");
+          }}
+        >
           Add to Cart
         </button>
 
         <button
-          onClick={handleWishlist}
+          onClick={() => dispatch(toggleWish(product))}
           style={{
             background: isLiked ? "#ef4444" : "#111827"
           }}
         >
           {isLiked ? "❤️" : "🤍"}
         </button>
+
       </div>
+
     </motion.div>
   );
 }

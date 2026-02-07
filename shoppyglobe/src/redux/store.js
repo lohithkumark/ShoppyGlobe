@@ -12,7 +12,7 @@ const store = configureStore({
     cart: cartReducer,
     filter: filterReducer,
     search: searchReducer,
-    theme: themeReducer,     
+    theme: themeReducer,
     wishlist: wishlistReducer,
     currency: currencyReducer
   }

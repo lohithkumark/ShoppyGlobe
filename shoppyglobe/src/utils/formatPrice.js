@@ -1,5 +1,8 @@
-export function formatPrice(price, currency) {
-  const converted = price * currency.rate;
+export function formatPrice(price, currency, rate) {
+  const converted = price * rate;
 
-  return `${currency.symbol}${converted.toFixed(2)}`;
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: currency
+  }).format(converted);
 }

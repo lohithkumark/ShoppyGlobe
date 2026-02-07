@@ -7,15 +7,17 @@ import {
   resetFilter
 } from "../redux/filterSlice";
 
+import { formatPrice } from "../utils/formatPrice";
+
 function FilterBar() {
   const dispatch = useDispatch();
 
   const filter = useSelector(state => state.filter);
+  const currency = useSelector(state => state.currency);
 
   return (
     <div className="filter-bar">
 
-      {/* Category */}
       <select
         value={filter.category}
         onChange={e =>
@@ -27,25 +29,32 @@ function FilterBar() {
         <option value="perfume">Perfume</option>
       </select>
 
-      {/* Price Slider */}
       <div className="price-slider">
-        <span>$0</span>
+
+        <span>
+          {formatPrice(0, currency.code, currency.rate)}
+        </span>
 
         <input
           type="range"
           min="0"
-          max="200"
-          step="5"
+          max="2000"
           value={filter.maxPrice}
           onChange={e =>
-            dispatch(setMaxPrice(e.target.value))
+            dispatch(setMaxPrice(Number(e.target.value)))
           }
         />
 
-        <span>${filter.maxPrice}</span>
+        <span>
+          {formatPrice(
+            filter.maxPrice,
+            currency.code,
+            currency.rate
+          )}
+        </span>
+
       </div>
 
-      {/* Sort */}
       <select
         value={filter.sort}
         onChange={e =>
@@ -53,11 +62,10 @@ function FilterBar() {
         }
       >
         <option value="default">Default</option>
-        <option value="low">Price: Low → High</option>
-        <option value="high">Price: High → Low</option>
+        <option value="low">Low → High</option>
+        <option value="high">High → Low</option>
       </select>
 
-      {/* Reset */}
       <button onClick={() => dispatch(resetFilter())}>
         Reset
       </button>

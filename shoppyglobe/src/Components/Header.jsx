@@ -1,64 +1,87 @@
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setCountry } from "../redux/currencySlice";
-
 
 import { setSearch } from "../redux/searchSlice";
 import { toggleTheme } from "../redux/themeSlice";
+import { setCurrency } from "../redux/currencySlice";
 
 function Header() {
   const dispatch = useDispatch();
 
   const cart = useSelector(state => state.cart);
   const dark = useSelector(state => state.theme.dark);
-  const currency = useSelector(state => state.currency);
+  const currency = useSelector(state => state.currency.code);
 
-
-  const total = cart.reduce(
+  const totalItems = cart.reduce(
     (sum, item) => sum + item.qty,
     0
   );
 
+  function handleCurrencyChange(e) {
+    const value = e.target.value;
+
+    if (value === "USD") {
+      dispatch(setCurrency({ code: "USD", rate: 1 }));
+    }
+
+    if (value === "INR") {
+      dispatch(setCurrency({ code: "INR", rate: 83 }));
+    }
+
+    if (value === "EUR") {
+      dispatch(setCurrency({ code: "EUR", rate: 0.9 }));
+    }
+  }
+
   return (
     <header className="header">
-      <Link to="/">
-        <h2>ShoppyGlobe</h2>
-       </Link>
 
+      {/* Logo */}
+      <h2>ShoppyGlobe</h2>
 
+      {/* Search */}
       <div className="search-box">
         <input
-        placeholder="Search products..."
-        onChange={e => dispatch(setSearch(e.target.value))}
-    />
-        </div>
+          type="text"
+          placeholder="Search products..."
+          onChange={e =>
+            dispatch(setSearch(e.target.value))
+          }
+        />
+      </div>
 
-
+      {/* Navigation */}
       <nav>
-  <Link to="/">Home</Link>
 
-  <Link to="/cart">
-    Cart ({total})
-  </Link>
+        <Link to="/">Home</Link>
 
-  <Link to="/orders">
-    Orders
-  </Link>
-  <select
-  value={currency.country}
-  onChange={e => dispatch(setCountry(e.target.value))}
-  className="country-select"
->
-  <option value="US">🇺🇸 USD</option>
-  <option value="IN">🇮🇳 INR</option>
-  <option value="EU">🇪🇺 EUR</option>
-</select>
+        <Link to="/cart">
+          Cart ({totalItems})
+        </Link>
 
+        <Link to="/orders">
+          Orders
+        </Link>
 
-  <button onClick={() => dispatch(toggleTheme())}>
-    {dark ? "☀️" : "🌙"}
-  </button>
-</nav>
+        {/* Currency Selector */}
+        <select
+          value={currency}
+          onChange={handleCurrencyChange}
+        >
+          <option value="USD">🇺🇸 USD</option>
+          <option value="INR">🇮🇳 INR</option>
+          <option value="EUR">🇪🇺 EUR</option>
+        </select>
+
+        {/* Theme Toggle */}
+        <button
+          className="theme-btn"
+          onClick={() => dispatch(toggleTheme())}
+        >
+          {dark ? "☀️" : "🌙"}
+        </button>
+
+      </nav>
 
     </header>
   );

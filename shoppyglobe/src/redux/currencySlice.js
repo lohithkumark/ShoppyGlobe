@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  country: "US",
-  symbol: "$",
+  code: "USD",
   rate: 1
 };
 
@@ -12,30 +11,13 @@ const currencySlice = createSlice({
   initialState,
 
   reducers: {
-    setCountry(state, action) {
-      const country = action.payload;
-
-      if (country === "US") {
-        state.country = "US";
-        state.symbol = "$";
-        state.rate = 1;
-      }
-
-      if (country === "IN") {
-        state.country = "IN";
-        state.symbol = "₹";
-        state.rate = 83;
-      }
-
-      if (country === "EU") {
-        state.country = "EU";
-        state.symbol = "€";
-        state.rate = 0.9;
-      }
+    setCurrency(state, action) {
+      state.code = action.payload.code;
+      state.rate = action.payload.rate;
     }
   }
 });
 
-export const { setCountry } = currencySlice.actions;
+export const { setCurrency } = currencySlice.actions;
 
 export default currencySlice.reducer;

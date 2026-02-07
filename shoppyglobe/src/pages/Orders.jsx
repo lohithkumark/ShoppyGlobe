@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 
 import { formatPrice } from "../utils/formatPrice";
 
 function Orders() {
   const [orders, setOrders] = useState([]);
-
-  const currency = useSelector(state => state.currency);
 
   useEffect(() => {
     const saved =
@@ -21,25 +18,24 @@ function Orders() {
 
   return (
     <div className="container">
+
       <h2>My Orders</h2>
 
-      {orders.map((order, index) => (
-        <div key={index} className="order-card">
+      {orders.map((order, i) => (
+        <div key={i} className="order-card">
 
-          <p>Order #{index + 1}</p>
-
-          <p>
-            Items: {order.items.length}
-          </p>
+          <p>Order #{i + 1}</p>
 
           <p>
-            Total: {formatPrice(order.total, currency)}
+            Total:
+            {formatPrice(order.total, order.currency)}
           </p>
 
           <p>Date: {order.date}</p>
 
         </div>
       ))}
+
     </div>
   );
 }

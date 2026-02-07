@@ -13,46 +13,54 @@ function CartItem({ item }) {
 
   const currency = useSelector(state => state.currency);
 
-  function handleIncrease() {
-    dispatch(increaseQty(item.id));
-  }
-
-  function handleDecrease() {
-    dispatch(decreaseQty(item.id));
-  }
-
-  function handleRemove() {
-    dispatch(removeFromCart(item.id));
-  }
+  const price =
+    item.price * item.qty * currency.rate;
 
   return (
     <div className="cart-item">
-      <img
-        src={item.thumbnail}
-        alt={item.title}
-      />
+
+      <img src={item.thumbnail} />
 
       <div>
+
         <h4>{item.title}</h4>
 
-        <p>{formatPrice(item.price, currency)}</p>
+        <p>
+          {formatPrice(price, currency.code)}
+        </p>
 
         <div>
-          <button onClick={handleDecrease}>
+
+          <button
+            onClick={() =>
+              dispatch(decreaseQty(item.id))
+            }
+          >
             -
           </button>
 
-          <span> {item.qty} </span>
+          <span>{item.qty}</span>
 
-          <button onClick={handleIncrease}>
+          <button
+            onClick={() =>
+              dispatch(increaseQty(item.id))
+            }
+          >
             +
           </button>
+
         </div>
 
-        <button onClick={handleRemove}>
+        <button
+          onClick={() =>
+            dispatch(removeFromCart(item.id))
+          }
+        >
           Remove
         </button>
+
       </div>
+
     </div>
   );
 }
