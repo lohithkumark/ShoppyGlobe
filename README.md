@@ -1,3 +1,6 @@
+Github link -> "https://github.com/lohithkumark/ShoppyGlobe";
+
+
 # 🛒 ShoppyGlobe – E-Commerce Web App
 
 ShoppyGlobe is a modern e-commerce web application built using **React, Redux Toolkit, and Vite**.  
@@ -184,6 +187,7 @@ Slices Used:
 - themeSlice
 - wishlistSlice
 - currencySlice
+- storeSlice
 
 All app state is centralized using Redux Toolkit.
 
