@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useSelector } from "react-redux";
 
 import useFetchProducts from "../hooks/useFetchProducts";
@@ -9,6 +10,8 @@ function Home() {
 
   const search = useSelector(state => state.search);
   const filter = useSelector(state => state.filter);
+
+  const [visible, setVisible] = useState(6);
 
   if (loading) return <h3>Loading products...</h3>;
 
@@ -52,14 +55,25 @@ function Home() {
         {filtered.length === 0 ? (
           <h3>No products found</h3>
         ) : (
-          filtered.map(product => (
-            <ProductItem
-              key={product.id}
-              product={product}
-            />
-          ))
+          filtered
+            .slice(0, visible)
+            .map(product => (
+              <ProductItem
+                key={product.id}
+                product={product}
+              />
+            ))
         )}
       </div>
+
+      {visible < filtered.length && (
+        <button
+          className="load-more"
+          onClick={() => setVisible(v => v + 6)}
+        >
+          Load More
+        </button>
+      )}
     </div>
   );
 }
