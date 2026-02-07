@@ -25,13 +25,19 @@ function Orders() {
 
       {orders.map((order, index) => (
         <div key={index} className="order-card">
+
           <p>Order #{index + 1}</p>
+
+          <p>
+            Items: {order.items.length}
+          </p>
 
           <p>
             Total: {formatPrice(order.total, currency)}
           </p>
 
           <p>Date: {order.date}</p>
+
         </div>
       ))}
     </div>
