@@ -21,7 +21,10 @@ function Header() {
 
   return (
     <header className="header">
-      <h2>ShoppyGlobe</h2>
+      <Link to="/">
+        <h2>ShoppyGlobe</h2>
+       </Link>
+
 
       <div className="search-box">
         <input
