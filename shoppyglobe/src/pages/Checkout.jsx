@@ -1,28 +1,25 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
 import { clearCart } from "../redux/cartSlice";
-
 import { formatPrice } from "../utils/formatPrice";
 
 function Checkout() {
   const cart = useSelector(state => state.cart);
-  const currency = useSelector(state => state.currency);
+  const currency = useSelector(state => state.currency.currency);
+  const rate = useSelector(state => state.currency.rate);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const total = cart.reduce(
-    (s, i) =>
-      s + i.price * i.qty,
+    (s, i) => s + i.price * i.qty * rate,
     0
-  ) * currency.rate;
+  );
 
   function placeOrder() {
     const order = {
       items: cart,
       total,
-      currency: currency.code,
       date: new Date().toLocaleString()
     };
 
@@ -35,7 +32,6 @@ function Checkout() {
     );
 
     dispatch(clearCart());
-
     navigate("/orders");
   }
 
@@ -45,18 +41,9 @@ function Checkout() {
 
   return (
     <div className="container">
-
       <h2>Checkout</h2>
-
-      <p>
-        Total:
-        {formatPrice(total, currency.code)}
-      </p>
-
-      <button onClick={placeOrder}>
-        Place Order
-      </button>
-
+      <p>Total: {formatPrice(total, currency)}</p>
+      <button onClick={placeOrder}>Place Order</button>
     </div>
   );
 }

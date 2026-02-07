@@ -11,34 +11,29 @@ function ProductItem({ product }) {
   const dispatch = useDispatch();
 
   const wishlist = useSelector(state => state.wishlist);
-  const currency = useSelector(state => state.currency);
+  const currency = useSelector(state => state.currency.currency);
+  const rate = useSelector(state => state.currency.rate);
 
   const isLiked = wishlist.some(
     item => item.id === product.id
   );
+
+  const price = product.price * rate;
 
   return (
     <motion.div
       className="card"
       whileHover={{ scale: 1.05 }}
     >
-
-      <img src={product.thumbnail} />
+      <img src={product.thumbnail} alt={product.title} />
 
       <Link to={`/product/${product.id}`}>
         <h4>{product.title}</h4>
       </Link>
 
-      <p>
-        {formatPrice(
-          product.price,
-          currency.code,
-          currency.rate
-        )}
-      </p>
+      <p>{formatPrice(price, currency)}</p>
 
-      <div className="btn-row">
-
+      <div className="actions">
         <button
           onClick={() => {
             dispatch(addToCart(product));
@@ -56,9 +51,7 @@ function ProductItem({ product }) {
         >
           {isLiked ? "❤️" : "🤍"}
         </button>
-
       </div>
-
     </motion.div>
   );
 }

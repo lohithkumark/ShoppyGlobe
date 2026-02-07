@@ -1,8 +1,14 @@
-export function formatPrice(price, currency, rate) {
-  const converted = price * rate;
+export function formatPrice(amount, currency) {
+  if (
+    typeof amount !== "number" ||
+    isNaN(amount) ||
+    typeof currency !== "string"
+  ) {
+    return "$0.00";
+  }
 
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: currency
-  }).format(converted);
+  }).format(amount);
 }
