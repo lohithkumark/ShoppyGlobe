@@ -1,16 +1,238 @@
-# React + Vite
+Github link -> "https://github.com/lohithkumark/ShoppyGlobe";
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+# 🛒 ShoppyGlobe – E-Commerce Web App
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+ShoppyGlobe is a modern e-commerce web application built using **React, Redux Toolkit, and Vite**.  
+It allows users to browse products, add items to cart, place orders, and switch currencies.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- ✅ Product Listing (API Based)
+- ✅ Product Search
+- ✅ Category Filter
+- ✅ Price Range Filter
+- ✅ Sorting (Low → High / High → Low)
+- ✅ Add to Cart / Remove from Cart
+- ✅ Quantity Control
+- ✅ Checkout System
+- ✅ Order History
+- ✅ Wishlist
+- ✅ Dark / Light Mode
+- ✅ Currency Converter (USD / INR / EUR)
+- ✅ Responsive Design
+- ✅ Toast Notifications
+- ✅ LocalStorage Persistence
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠️ Tech Stack
+
+| Technology     | Usage            |
+|------------    |--------          |
+| React.js       | Frontend UI      |
+| Redux Toolkit  | State Management |
+| React Router   | Routing          |
+| Vite           | Build Tool       |
+| Framer Motion  | Animations       |
+| React Hot Toast| Notifications    |  
+| DummyJSON API  | Product Data     |
+
+---
+
+## 📁 Project Folder Structure
+
+```
+shoppyglobe/
+│
+├── public/
+│
+├── src/
+│   ├── assets/
+│   │
+│   ├── Components/
+│   │   ├── CartItem.jsx
+│   │   ├── FilterBar.jsx
+│   │   ├── Header.jsx
+│   │   ├── ProductItem.jsx
+│   │   └── ScrollTop.jsx
+│   │
+│   ├── hooks/
+│   │   └── useFetchProducts.js
+│   │
+│   ├── pages/
+│   │   ├── Home.jsx
+│   │   ├── Cart.jsx
+│   │   ├── Checkout.jsx
+│   │   ├── Orders.jsx
+│   │   ├── ProductDetail.jsx
+│   │   └── NotFound.jsx
+│   │
+│   ├── redux/
+│   │   ├── cartSlice.js
+│   │   ├── currencySlice.js
+│   │   ├── filterSlice.js
+│   │   ├── searchSlice.js
+│   │   ├── storeSlice.js
+│   │   ├── themeSlice.js
+│   │   └── wishlistSlice.js
+│   │
+│   ├── router/
+│   │   └── index.jsx
+│   │
+│   ├── utils/
+│   │   └── formatPrice.js
+│   │
+│   ├── App.jsx
+│   ├── main.jsx
+│   ├── index.css
+│   └── App.css
+│
+├── package.json
+├── vite.config.js
+└── README.md
+```
+
+---
+
+## ⚙️ Installation & Setup
+
+### 1️⃣ Clone Repository
+
+```bash
+git clone <your-repo-url>
+cd shoppyglobe
+```
+
+---
+
+### 2️⃣ Install Dependencies
+
+```bash
+npm install
+```
+
+---
+
+### 3️⃣ Start Development Server
+
+```bash
+npm run dev
+```
+
+Open browser at:
+
+```
+http://localhost:5173
+```
+
+---
+
+## 🌐 API Used
+
+DummyJSON Products API:
+
+```
+https://dummyjson.com/products
+```
+
+---
+
+## 💾 Local Storage Usage
+
+The app stores data in browser storage:
+
+- 🛒 Cart
+- ❤️ Wishlist
+- 📦 Orders
+- 🌗 Theme
+- 💱 Currency
+
+So data is preserved after refresh.
+
+---
+
+## 💱 Currency Support
+
+Supported Currencies:
+
+- USD ($)
+- INR (₹)
+- EUR (€)
+
+Prices are dynamically converted using predefined rates.
+
+---
+
+## 🎨 UI Features
+
+- Clean Card Layout
+- Hover Animations
+- Dark Mode
+- Responsive Grid
+- Smooth Transitions
+- Modern Navbar
+
+---
+
+## 📦 Redux State Management
+
+Slices Used:
+
+- cartSlice
+- filterSlice
+- searchSlice
+- themeSlice
+- wishlistSlice
+- currencySlice
+
+All app state is centralized using Redux Toolkit.
+
+---
+
+## 🧪 Error Handling
+
+- API Errors handled
+- Loading State
+- Empty Cart Handling
+- No Products Found
+- Currency Validation
+
+---
+
+## 👨‍💻 Author
+
+Developed by:
+
+**Lohith Kumar K**
+
+Software Developer (React)
+
+---
+
+## 📜 License
+
+This project is created for educational purposes.  
+Free to use and modify.
+
+---
+
+## ⭐ Future Improvements
+
+- Payment Gateway
+- User Authentication
+- Backend Integration
+- Admin Dashboard
+- Reviews & Ratings
+- Order Tracking
+
+---
+
+## 📞 Support
+
+If you face any issues, feel free to contact.
+E-mail : lohitkumar2003@gmail.com
+
+Happy Coding 🚀
