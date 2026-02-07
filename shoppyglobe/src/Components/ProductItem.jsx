@@ -1,3 +1,6 @@
+import { Link } from "react-router-dom";
+
+
 function ProductItem({ product }) {
   return (
     <div style={styles.card}>
@@ -7,8 +10,10 @@ function ProductItem({ product }) {
         loading="lazy"
         style={styles.img}
       />
-
-      <h4>{product.title}</h4>
+    <Link to={`/product/${product.id}`}>
+        <h4>{product.title}</h4>
+    </Link>
+    
       <p>₹{product.price}</p>
 
       <button>Add to Cart</button>
