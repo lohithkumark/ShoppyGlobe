@@ -5,7 +5,7 @@ const filterSlice = createSlice({
 
   initialState: {
     category: "all",
-    maxPrice: 200,
+    maxPrice: 100,
     sort: "default"
   },
 
@@ -24,7 +24,7 @@ const filterSlice = createSlice({
 
     resetFilter(state) {
       state.category = "all";
-      state.maxPrice = 200;
+      state.maxPrice = 100;
       state.sort = "default";
     }
   }
