@@ -1,7 +1,15 @@
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
+import { addToCart } from "../redux/cartSlice";
 
 function ProductItem({ product }) {
+  const dispatch = useDispatch();
+
+  function handleAdd() {
+    dispatch(addToCart(product));
+  }
+
   return (
     <div style={styles.card}>
       <img
@@ -10,13 +18,14 @@ function ProductItem({ product }) {
         loading="lazy"
         style={styles.img}
       />
-    <Link to={`/product/${product.id}`}>
+
+      <Link to={`/product/${product.id}`}>
         <h4>{product.title}</h4>
-    </Link>
-    
+      </Link>
+
       <p>₹{product.price}</p>
 
-      <button>Add to Cart</button>
+      <button onClick={handleAdd}>Add to Cart</button>
     </div>
   );
 }
