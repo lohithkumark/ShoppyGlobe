@@ -17,6 +17,12 @@ function Checkout() {
   );
 
   function placeOrder() {
+
+    if (cart.length === 0) {
+      alert("Cart is empty");
+      return;
+    }
+
     if (!window.confirm("Place this order?")) {
       return;
     }
@@ -40,15 +46,13 @@ function Checkout() {
     navigate("/orders");
   }
 
-  if (cart.length === 0) {
-    return <h3>Cart is empty</h3>;
-  }
-
   return (
     <div className="container">
       <h2>Checkout</h2>
 
-      <p>Total: {formatPrice(total, currency)}</p>
+      <p>
+        Total: {formatPrice(total, currency)}
+      </p>
 
       <button onClick={placeOrder}>
         Place Order
