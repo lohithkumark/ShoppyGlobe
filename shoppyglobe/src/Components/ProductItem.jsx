@@ -11,15 +11,25 @@ function ProductItem({ product }) {
 
   const wishlist = useSelector(state => state.wishlist);
 
-  const isLiked = wishlist.some(
+  const isLiked = wishlist.find(
     item => item.id === product.id
   );
+
+  function handleAddCart() {
+    dispatch(addToCart(product));
+    toast.success("Added to cart");
+  }
+
+  function handleWishlist() {
+    dispatch(toggleWish(product));
+    toast.success("Wishlist updated");
+  }
 
   return (
     <motion.div
       className="card"
-      whileHover={{ scale: 1.05 }}
-      transition={{ type: "spring", stiffness: 200 }}
+      whileHover={{ scale: 1.03 }}
+      transition={{ duration: 0.2 }}
     >
       <img
         src={product.thumbnail}
@@ -40,20 +50,12 @@ function ProductItem({ product }) {
           justifyContent: "center"
         }}
       >
-        <button
-          onClick={() => {
-            dispatch(addToCart(product));
-            toast.success("Added to cart");
-          }}
-        >
+        <button onClick={handleAddCart}>
           Add to Cart
         </button>
 
         <button
-          onClick={() => {
-            dispatch(toggleWish(product));
-            toast.success("Wishlist updated");
-          }}
+          onClick={handleWishlist}
           style={{
             background: isLiked ? "#ef4444" : "#111827"
           }}
