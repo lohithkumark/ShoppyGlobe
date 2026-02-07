@@ -1,34 +1,52 @@
-import { useDispatch } from "react-redux";
-import { clearCart } from "../redux/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+import { clearCart } from "../redux/cartSlice";
+
 function Checkout() {
+  const cart = useSelector(state => state.cart);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  function handleOrder(e) {
-    e.preventDefault();
+  const total = cart.reduce(
+    (s, i) => s + i.price * i.qty,
+    0
+  );
 
-    alert("Order placed");
+  function placeOrder() {
+    const order = {
+      items: cart,
+      total,
+      date: new Date().toLocaleString()
+    };
+
+    const old =
+      JSON.parse(localStorage.getItem("orders")) || [];
+
+    localStorage.setItem(
+      "orders",
+      JSON.stringify([...old, order])
+    );
 
     dispatch(clearCart());
 
-    navigate("/");
+    navigate("/orders");
+  }
+
+  if (cart.length === 0) {
+    return <h3>Cart is empty</h3>;
   }
 
   return (
     <div className="container">
       <h2>Checkout</h2>
 
-      <form onSubmit={handleOrder}>
-        <input required placeholder="Name" />
-        <br /><br />
+      <p>Total: ₹{total}</p>
 
-        <input required placeholder="Address" />
-        <br /><br />
-
-        <button>Place Order</button>
-      </form>
+      <button onClick={placeOrder}>
+        Place Order
+      </button>
     </div>
   );
 }
