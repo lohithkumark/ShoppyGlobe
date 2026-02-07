@@ -1,15 +1,24 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+import { formatPrice } from "../utils/formatPrice";
 
 function ProductDetail() {
   const { id } = useParams();
+
+  const currency = useSelector(state => state.currency);
 
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
     async function fetchOne() {
-      const res = await fetch(`https://dummyjson.com/products/${id}`);
+      const res = await fetch(
+        `https://dummyjson.com/products/${id}`
+      );
+
       const data = await res.json();
+
       setProduct(data);
     }
 
@@ -19,14 +28,22 @@ function ProductDetail() {
   if (!product) return <h3>Loading...</h3>;
 
   return (
-    <div className="container">
+    <div className="container product-detail">
+
       <h2>{product.title}</h2>
 
-      <img src={product.thumbnail} />
+      <img
+        src={product.thumbnail}
+        alt={product.title}
+        className="detail-img"
+      />
 
       <p>{product.description}</p>
 
-      <h3>₹{product.price}</h3>
+      <h3>
+        {formatPrice(product.price, currency)}
+      </h3>
+
     </div>
   );
 }
