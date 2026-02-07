@@ -42,7 +42,7 @@ function Checkout() {
     <div className="container">
       <h2>Checkout</h2>
 
-      <p>Total: ₹{total}</p>
+      <p>Total: ${total}</p>
 
       <button onClick={placeOrder}>
         Place Order

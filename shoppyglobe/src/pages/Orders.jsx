@@ -23,7 +23,7 @@ function Orders() {
         <div key={i} className="order-card">
           <p>Order #{i + 1}</p>
 
-          <p>Total: ₹{order.total}</p>
+          <p>Total: ${order.total}</p>
 
           <p>Date: {order.date}</p>
         </div>

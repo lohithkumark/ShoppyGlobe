@@ -41,7 +41,7 @@ function ProductItem({ product }) {
         <h4>{product.title}</h4>
       </Link>
 
-      <p>₹{product.price}</p>
+      <p>${product.price}</p>
 
       <div
         style={{
