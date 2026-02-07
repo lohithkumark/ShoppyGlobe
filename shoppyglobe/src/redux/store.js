@@ -1,5 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import filterReducer from "./filterSlice";
+import currencyReducer from "./currencySlice";
+
 
 
 import cartReducer from "./cartSlice";
@@ -13,7 +15,9 @@ export const store = configureStore({
     search: searchReducer,
     theme: themeReducer,
     wishlist: wishlistReducer,
-    filter: filterReducer
+    filter: filterReducer,
+    currency: currencyReducer
+
 
   }
 });

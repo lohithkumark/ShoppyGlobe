@@ -5,11 +5,13 @@ import toast from "react-hot-toast";
 
 import { addToCart } from "../redux/cartSlice";
 import { toggleWish } from "../redux/wishlistSlice";
+import { formatPrice } from "../utils/formatPrice";
 
 function ProductItem({ product }) {
   const dispatch = useDispatch();
 
   const wishlist = useSelector(state => state.wishlist);
+  const currency = useSelector(state => state.currency);
 
   const isLiked = wishlist.find(
     item => item.id === product.id
@@ -41,7 +43,7 @@ function ProductItem({ product }) {
         <h4>{product.title}</h4>
       </Link>
 
-      <p>${product.price}</p>
+      <p>{formatPrice(product.price, currency)}</p>
 
       <div
         style={{

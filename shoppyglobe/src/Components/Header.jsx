@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { setCountry } from "../redux/currencySlice";
+
 
 import { setSearch } from "../redux/searchSlice";
 import { toggleTheme } from "../redux/themeSlice";
@@ -9,6 +11,8 @@ function Header() {
 
   const cart = useSelector(state => state.cart);
   const dark = useSelector(state => state.theme.dark);
+  const currency = useSelector(state => state.currency);
+
 
   const total = cart.reduce(
     (sum, item) => sum + item.qty,
@@ -37,6 +41,16 @@ function Header() {
   <Link to="/orders">
     Orders
   </Link>
+  <select
+  value={currency.country}
+  onChange={e => dispatch(setCountry(e.target.value))}
+  className="country-select"
+>
+  <option value="US">🇺🇸 USD</option>
+  <option value="IN">🇮🇳 INR</option>
+  <option value="EU">🇪🇺 EUR</option>
+</select>
+
 
   <button onClick={() => dispatch(toggleTheme())}>
     {dark ? "☀️" : "🌙"}

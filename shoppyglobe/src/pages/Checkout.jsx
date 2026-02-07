@@ -2,31 +2,37 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { clearCart } from "../redux/cartSlice";
+import { formatPrice } from "../utils/formatPrice";
 
 function Checkout() {
   const cart = useSelector(state => state.cart);
+  const currency = useSelector(state => state.currency);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const total = cart.reduce(
-    (s, i) => s + i.price * i.qty,
+    (sum, item) => sum + item.price * item.qty,
     0
   );
 
   function placeOrder() {
+    if (!window.confirm("Place this order?")) {
+      return;
+    }
+
     const order = {
       items: cart,
       total,
       date: new Date().toLocaleString()
     };
 
-    const old =
+    const oldOrders =
       JSON.parse(localStorage.getItem("orders")) || [];
 
     localStorage.setItem(
       "orders",
-      JSON.stringify([...old, order])
+      JSON.stringify([...oldOrders, order])
     );
 
     dispatch(clearCart());
@@ -42,7 +48,7 @@ function Checkout() {
     <div className="container">
       <h2>Checkout</h2>
 
-      <p>Total: ${total}</p>
+      <p>Total: {formatPrice(total, currency)}</p>
 
       <button onClick={placeOrder}>
         Place Order

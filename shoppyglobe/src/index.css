@@ -448,3 +448,19 @@ h2 {
 .dark .order-card p {
   color: #e5e7eb;
 }
+
+.country-select {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.dark .country-select {
+  background: #1f2933;
+  color: white;
+  border-color: #374151;
+}
+

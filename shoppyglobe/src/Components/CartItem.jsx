@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
   removeFromCart,
@@ -6,30 +6,50 @@ import {
   decreaseQty
 } from "../redux/cartSlice";
 
+import { formatPrice } from "../utils/formatPrice";
+
 function CartItem({ item }) {
   const dispatch = useDispatch();
 
+  const currency = useSelector(state => state.currency);
+
+  function handleIncrease() {
+    dispatch(increaseQty(item.id));
+  }
+
+  function handleDecrease() {
+    dispatch(decreaseQty(item.id));
+  }
+
+  function handleRemove() {
+    dispatch(removeFromCart(item.id));
+  }
+
   return (
     <div className="cart-item">
-      <img src={item.thumbnail} />
+      <img
+        src={item.thumbnail}
+        alt={item.title}
+      />
 
       <div>
         <h4>{item.title}</h4>
-        <p>₹{item.price}</p>
+
+        <p>{formatPrice(item.price, currency)}</p>
 
         <div>
-          <button onClick={() => dispatch(decreaseQty(item.id))}>
+          <button onClick={handleDecrease}>
             -
           </button>
 
           <span> {item.qty} </span>
 
-          <button onClick={() => dispatch(increaseQty(item.id))}>
+          <button onClick={handleIncrease}>
             +
           </button>
         </div>
 
-        <button onClick={() => dispatch(removeFromCart(item.id))}>
+        <button onClick={handleRemove}>
           Remove
         </button>
       </div>
